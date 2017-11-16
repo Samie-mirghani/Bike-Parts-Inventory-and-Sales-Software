@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.pkg3.FXMLDocumentController">
+  <tabs>
+    <Tab fx:id="welcome" text="Welcome">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="135.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Bicycle Parts Distributorship  " textAlignment="CENTER" wrappingWidth="330.78515625">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="wOutput" layoutX="94.0" layoutY="149.0" prefHeight="173.0" prefWidth="413.0" />
+                  <Button fx:id="start" layoutX="270.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlestartAction" prefHeight="35.0" prefWidth="61.0" text="Start" />
+                  <Button fx:id="exit" layoutX="280.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleExitAction" text="Exit" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="officeManager" text="Office Manager">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="pName" layoutX="43.0" layoutY="43.0" promptText="Enter part name" />
+                  <TextField fx:id="pNum" layoutX="43.0" layoutY="70.0" promptText="Enter part number" />
+                  <TextField fx:id="pList" layoutX="43.0" layoutY="98.0" promptText="Enter list price" />
+                  <TextField fx:id="pSales" layoutX="43.0" layoutY="125.0" promptText="Enter sales price" />
+                  <TextField fx:id="pOnsale" layoutX="43.0" layoutY="152.0" prefHeight="27.0" prefWidth="202.0" promptText="Enter true/false if it is on sale" />
+                  <Button fx:id="enter" layoutX="248.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleOMEnterAction" text="Enter" />
+                  <TextField fx:id="pQuan" layoutX="43.0" layoutY="179.0" promptText="Enter quantity" />
+                  <Button fx:id="read" layoutX="358.0" layoutY="34.0" mnemonicParsing="false" text="Select a file" />
+                  <Button fx:id="check" layoutX="358.0" layoutY="70.0" mnemonicParsing="false" text="Check Inventory" />
+                  <TextField fx:id="salesmanField" layoutX="300.0" layoutY="150.0" promptText="Enter salesman name" />
+                  <Button fx:id="paySalesman" layoutX="476.0" layoutY="150.0" mnemonicParsing="false" text="Pay Salesman" />
+                  <TextArea fx:id="oOutput" layoutX="281.0" layoutY="184.0" prefHeight="166.0" prefWidth="272.0" />
+                  <Text layoutX="222.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Office Manager" wrappingWidth="153.5927734375">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="oExit" layoutX="115.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleExitAction" text="Exit" />
+                  <ScrollPane layoutX="282.0" layoutY="184.0" prefHeight="165.0" prefWidth="270.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="Salesman" onSelectionChanged="#handleSalesAction" text="Salesman">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="vantoVan" layoutX="43.0" layoutY="48.0" promptText="Move van to Van" />
+                  <Button fx:id="vanButton" layoutX="241.0" layoutY="48.0" mnemonicParsing="false" text="Move" />
+                  <TextField fx:id="whtoVan" layoutX="43.0" layoutY="84.0" promptText="Move warehouse to van" />
+                  <Button fx:id="WHtoVanButton" layoutX="241.0" layoutY="84.0" mnemonicParsing="false" text="Move" />
+                  <TextField fx:id="salesmanName" layoutX="43.0" layoutY="123.0" promptText="Enter salesman name" />
+                  <Button fx:id="displayButton" layoutX="238.0" layoutY="123.0" mnemonicParsing="false" text="Display" />
+                  <TextField fx:id="pNumberField" layoutX="43.0" layoutY="170.0" promptText="Enter part number" />
+                  <TextField layoutX="43.0" layoutY="207.0" promptText="Enter warehouse name" />
+                  <Button fx:id="sellButton" layoutX="238.0" layoutY="194.0" mnemonicParsing="false" text="Sell" />
+                  <TextArea fx:id="salesmanOutput" layoutX="343.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" />
+                  <ScrollPane layoutX="343.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+                  <Button fx:id="sExit" layoutX="402.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleExitAction" text="Exit" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="WHmanager" onSelectionChanged="#handleWHAction" text="WH Manager">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="name" layoutX="39.0" layoutY="34.0" promptText="Enter part name" />
+                  <TextField fx:id="number" layoutX="39.0" layoutY="61.0" promptText="Enter part number" />
+                  <TextField fx:id="list" layoutX="39.0" layoutY="88.0" promptText="Enter list price" />
+                  <TextField fx:id="salesPrice" layoutX="39.0" layoutY="115.0" promptText="Enter sales price" />
+                  <TextField fx:id="onSale" layoutX="39.0" layoutY="142.0" prefHeight="27.0" prefWidth="196.0" promptText="Enter true/false if it is on sale" />
+                  <TextField fx:id="quant" layoutX="39.0" layoutY="169.0" promptText="Enter quantity" />
+                  <Button fx:id="whEnter" layoutX="256.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleWHEnterAction" text="Enter" />
+                  <TextArea fx:id="whOutput" layoutX="355.0" layoutY="24.0" prefHeight="318.0" prefWidth="200.0" />
+                  <Button fx:id="whExit" layoutX="230.0" layoutY="286.0" mnemonicParsing="false" onAction="#handleExitAction" prefWidth="63.0" text="Exit" />
+                  <Text layoutX="133.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Warehouse Manager">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <ScrollPane layoutX="355.0" layoutY="24.0" prefHeight="320.0" prefWidth="200.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="systemAdmin" onSelectionChanged="#handleAdminAction" text="System Admin">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="managerField" layoutX="42.0" layoutY="43.0" prefHeight="27.0" prefWidth="199.0" promptText="Enter a office manager name" />
+                  <TextField fx:id="salesman" layoutX="42.0" layoutY="83.0" promptText="Enter salesman name" />
+                  <TextField fx:id="warhouseField" layoutX="42.0" layoutY="123.0" prefHeight="27.0" prefWidth="181.0" promptText="Enter WH manager name" />
+                  <TextField fx:id="salesVan" layoutX="42.0" layoutY="164.0" promptText="Add sales van" />
+                  <TextField fx:id="addSalesman" layoutX="42.0" layoutY="201.0" promptText="Add salesman" />
+                  <Button fx:id="OfficeManager" layoutX="290.0" layoutY="43.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="SalesmanButton" layoutX="290.0" layoutY="83.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="addWHmanager" layoutX="290.0" layoutY="123.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="salesvanButton" layoutX="290.0" layoutY="164.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="salesManButton" layoutX="290.0" layoutY="201.0" mnemonicParsing="false" text="Add" />
+                  <TextArea layoutX="372.0" layoutY="37.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Button fx:id="exitAdmin" layoutX="443.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleExitAction" prefHeight="27.0" prefWidth="50.0" text="Exit" />
+                  <ScrollPane layoutX="372.0" layoutY="37.0" prefHeight="200.0" prefWidth="200.0">
+                    <content>
+                      <AnchorPane fx:id="outputSystemAdmin" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+                  <Text layoutX="173.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="System Admin">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
