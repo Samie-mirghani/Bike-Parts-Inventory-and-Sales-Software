@@ -27,7 +27,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab fx:id="officeManager" text="Office Manager">
+    <Tab fx:id="officeManager" onSelectionChanged="#handleOfficeAction" text="Office Manager">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -67,8 +67,8 @@
                   <Button fx:id="WHtoVanButton" layoutX="241.0" layoutY="84.0" mnemonicParsing="false" text="Move" />
                   <TextField fx:id="salesmanName" layoutX="43.0" layoutY="123.0" promptText="Enter salesman name" />
                   <Button fx:id="displayButton" layoutX="238.0" layoutY="123.0" mnemonicParsing="false" text="Display" />
-                  <TextField fx:id="pNumberField" layoutX="43.0" layoutY="170.0" promptText="Enter part number" />
-                  <TextField layoutX="43.0" layoutY="207.0" promptText="Enter warehouse name" />
+                  <TextField fx:id="pNumberField" layoutX="43.0" layoutY="181.0" promptText="Enter part number" />
+                  <TextField layoutX="43.0" layoutY="208.0" promptText="Enter warehouse name" />
                   <Button fx:id="sellButton" layoutX="238.0" layoutY="194.0" mnemonicParsing="false" text="Sell" />
                   <TextArea fx:id="salesmanOutput" layoutX="343.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" />
                   <ScrollPane layoutX="343.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0">
@@ -77,6 +77,7 @@
                     </content>
                   </ScrollPane>
                   <Button fx:id="sExit" layoutX="402.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleExitAction" text="Exit" />
+                  <TextField layoutX="43.0" layoutY="237.0" promptText="Enter Salesman name" />
                </children>
             </AnchorPane>
         </content>
