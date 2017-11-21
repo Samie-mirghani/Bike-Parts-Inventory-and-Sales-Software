@@ -5,9 +5,11 @@
  */
 package project.pkg3;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +31,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -145,16 +149,81 @@ public class FXMLDocumentController implements Initializable {
     private File wareHouse = new File(System.getProperty("user.dir") + "\\warehouseDB.txt");
     private ArrayList<WareHouse> fleet = new ArrayList<>();
 
-    private void handleButtonAction(ActionEvent event) {
+    @FXML
+    private void handleButtonAction(ActionEvent event) throws FileNotFoundException, IOException {
+        Node node = (Node) event.getSource();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Update file");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
-        //fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(node.getScene().getWindow());
+
+        if (file != null) {
+            file.getPath();
+        }
+        ArrayList<BikePart> delivery = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(wareHouse));
+        reader = new BufferedReader(new FileReader(file.getPath()));
+        int num = 0;
+        while (reader.readLine() != null) {
+            num++;
+        }
+        reader.close();
+        reader = new BufferedReader(new FileReader(file.getPath()));
+        for (int i = 0; i < num; i++) {
+            String line = reader.readLine();
+            String[] elements = line.split(",");
+            BikePart bp = new BikePart(elements[0],
+                    Integer.parseInt(elements[1]),
+                    Double.parseDouble(elements[2]),
+                    Double.parseDouble(elements[3]),
+                    Boolean.parseBoolean(elements[4]),
+                    Integer.parseInt(elements[5]));
+            boolean g = false;
+            for (BikePart f : bpa) {
+                if (f.getpartNumber() == bp.getpartNumber()) {
+                    f.addQuantity(bp.getquantity());
+                    g = true;
+                    break;
+                }
+            }
+            if (!g) {
+                bpa.add(bp);
+            }
+        }
+        // Loops through ArrayList and deterimines if there are any of
+        // The same parts in the delivery file. If so, the quantity will
+        // be adjusted
+        boolean found;
+        int index;
+        for (int i = 0; i < delivery.size(); i++) {
+            found = false;
+            index = -1;
+            for (int j = 0; i < bpa.size(); j++) {
+                BikePart b1 = delivery.get(i);
+                BikePart b2 = bpa.get(j);
+                if (b1.getpartName().equalsIgnoreCase(b2.getpartName())) {
+                    found = true;
+                    index = j;
+                    break;
+                }
+            }
+            if (found) {
+                int b1 = delivery.get(i).getquantity();
+                int b2 = bpa.get(index).getquantity();
+                bpa.get(index).setQuantity(b1 + b2);
+            } else {
+                bpa.add(delivery.get(i));
+            }
+        }
+
     }
 
+
+
+
     @FXML
-    private void handlestartAction(ActionEvent event) throws FileNotFoundException {
+        private void handlestartAction(ActionEvent event) throws FileNotFoundException {
         wOutput.appendText("Welcome to the Bicycle Parts Distributorship database \n");
         //Will create a file calle "warehouseDB.txt" in the user's current 
         //directory
@@ -187,30 +256,43 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleExitAction(ActionEvent event) throws IOException {
+        private void handleExitAction(ActionEvent event) throws IOException {
         writeText(wareHouse, bpa);
         Platform.exit();
 
     }
 
-    private void handleOfficeAction(ActionEvent event) throws IOException {
+    @FXML
+        private void handleSalesAction(Event event) throws IOException {
         Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
-        Scene scene = new Scene(passwordWindow);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.setScene(scene);
-        app_stage.show();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(passwordWindow));
+        stage.show();
     }
 
     @FXML
-    private void handleSalesAction(Event event) {
+        private void handleWHAction(Event event) throws IOException {
+        Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(passwordWindow));
+        stage.show();
     }
 
     @FXML
-    private void handleWHAction(Event event) {
-    }
-
-    @FXML
-    private void handleAdminAction(Event event) {
+        private void handleAdminAction(Event event) throws IOException {
+        Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(passwordWindow));
+        stage.show();
     }
 
     /**
@@ -219,7 +301,7 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleWHEnterAction(Event event) {
+        private void handleWHEnterAction(Event event) {
         //grabs all the information that was entered into the text fields
         String partName = name.getText();
         String partNum = number.getText();
@@ -233,8 +315,20 @@ public class FXMLDocumentController implements Initializable {
         double salePrice = Double.parseDouble(sale);
         boolean buy = Boolean.parseBoolean(cheap);
         int rQuantity = Integer.parseInt(quantity);
-        BikePart ePart = new BikePart(partName, num, price, salePrice, buy, rQuantity);
-        bpa.add(ePart);
+        for(int i = 0; i < bpa.size(); i++){
+           if(partName.equalsIgnoreCase(bpa.get(i).getpartName())){
+               int quant = rQuantity;
+               int real = bpa.get(i).getquantity() + quant;
+               BikePart ePart = new BikePart(partName, num, price, salePrice, buy, real);
+               bpa.add(ePart);
+           }
+           else{
+               BikePart ePart = new BikePart(partName, num, price, salePrice, buy, rQuantity);
+               bpa.add(ePart);
+           }
+           
+               
+               }
         whOutput.appendText("Part was added! \n");
 
     }
@@ -245,7 +339,7 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleOMEnterAction(Event event) {
+        private void handleOMEnterAction(Event event) {
         //grabs all the information that was entered into the text fields
         String partName = pName.getText();
         String partNum = pNum.getText();
@@ -306,7 +400,17 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+        public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+
+    private void handleOfficeAction(Event event) throws IOException {
+        Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(passwordWindow));
+        stage.show();
     }
 }
