@@ -148,6 +148,10 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<BikePart> bpa = new ArrayList();
     private File wareHouse = new File(System.getProperty("user.dir") + "\\warehouseDB.txt");
     private ArrayList<WareHouse> fleet = new ArrayList<>();
+    @FXML
+    private TextArea sOutput;
+    @FXML
+    private TextArea saOutput;
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws FileNotFoundException, IOException {
@@ -216,14 +220,11 @@ public class FXMLDocumentController implements Initializable {
                 bpa.add(delivery.get(i));
             }
         }
-
+        oOutput.appendText("Delivery Confirmed");
     }
 
-
-
-
     @FXML
-        private void handlestartAction(ActionEvent event) throws FileNotFoundException {
+    private void handlestartAction(ActionEvent event) throws FileNotFoundException {
         wOutput.appendText("Welcome to the Bicycle Parts Distributorship database \n");
         //Will create a file calle "warehouseDB.txt" in the user's current 
         //directory
@@ -256,14 +257,55 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-        private void handleExitAction(ActionEvent event) throws IOException {
+    private void handleExitAction(ActionEvent event) throws IOException {
         writeText(wareHouse, bpa);
         Platform.exit();
 
     }
 
     @FXML
-        private void handleSalesAction(Event event) throws IOException {
+    private void handleMoveVanAction(ActionEvent event) throws FileNotFoundException {
+        String wfile = whtoVan.getText();
+        ArrayList<BikePart> move = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(wfile));
+        Scanner moveReader = new Scanner(reader);
+        String firstLine = moveReader.nextLine();
+        String[] wh = firstLine.split(",");
+        String to = wh[1];
+        while (moveReader.hasNext()) {
+            String newLine = moveReader.nextLine();
+            String[] movePart = newLine.split(",");
+            String vanName = movePart[0];
+            int bpquant = Integer.parseInt(movePart[1]);
+            for (int i = 0; i < bpa.size(); i++) {
+                if (vanName.equals(bpa.get(i).getpartName())) {
+                    bpa.get(i).setQuantity(bpa.get(i).getquantity() - bpquant);
+                    move.add(new BikePart(bpa.get(i).getpartName(), bpa.get(i).getpartNumber(), bpa.get(i).getlistPrice(), bpa.get(i).getsalesPrice(), bpa.get(i).getonSale(), bpquant));
+                }
+            }
+        }
+        for (int i = 0; i < fleet.size(); i++) {
+            if (to.equalsIgnoreCase(fleet.get(i).getWareName())) {
+                for (int k = 0; k < move.size(); k++) {
+                    int count = 0;
+                    for (int j = 0; j < fleet.get(i).getWareHouse().size(); j++) {
+                        if (move.get(k).getpartName().equalsIgnoreCase(fleet.get(i).getWareHouse().get(j).getpartName())) {
+                            fleet.get(i).getWareHouse().get(j).setQuantity(fleet.get(i).getWareHouse().get(j).getquantity() + move.get(k).getquantity());
+                            count += 1;
+                        }
+                    }
+                    if (count == 0) {
+                        fleet.get(i).getWareHouse().add(new BikePart(move.get(k).getpartName(), move.get(k).getpartNumber(), move.get(k).getlistPrice(), move.get(k).getsalesPrice(), move.get(k).getonSale(), move.get(k).getquantity()));
+                    }
+                }
+            }
+        }
+
+        sOutput.appendText("The parts have been moved!" + "\n");
+    }
+
+    @FXML
+    private void handleSalesAction(Event event) throws IOException {
         Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -274,7 +316,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-        private void handleWHAction(Event event) throws IOException {
+    private void handleWHAction(Event event) throws IOException {
         Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -285,7 +327,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-        private void handleAdminAction(Event event) throws IOException {
+    private void handleAdminAction(Event event) throws IOException {
         Parent passwordWindow = FXMLLoader.load(getClass().getResource("Password.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -301,7 +343,7 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-        private void handleWHEnterAction(Event event) {
+    private void handleWHEnterAction(Event event) {
         //grabs all the information that was entered into the text fields
         String partName = name.getText();
         String partNum = number.getText();
@@ -315,20 +357,18 @@ public class FXMLDocumentController implements Initializable {
         double salePrice = Double.parseDouble(sale);
         boolean buy = Boolean.parseBoolean(cheap);
         int rQuantity = Integer.parseInt(quantity);
-        for(int i = 0; i < bpa.size(); i++){
-           if(partName.equalsIgnoreCase(bpa.get(i).getpartName())){
-               int quant = rQuantity;
-               int real = bpa.get(i).getquantity() + quant;
-               BikePart ePart = new BikePart(partName, num, price, salePrice, buy, real);
-               bpa.add(ePart);
-           }
-           else{
-               BikePart ePart = new BikePart(partName, num, price, salePrice, buy, rQuantity);
-               bpa.add(ePart);
-           }
-           
-               
-               }
+        for (int i = 0; i < bpa.size(); i++) {
+            if (partName.equalsIgnoreCase(bpa.get(i).getpartName())) {
+                int quant = rQuantity;
+                int real = bpa.get(i).getquantity() + quant;
+                BikePart ePart = new BikePart(partName, num, price, salePrice, buy, real);
+                bpa.add(ePart);
+            } else {
+                BikePart ePart = new BikePart(partName, num, price, salePrice, buy, rQuantity);
+                bpa.add(ePart);
+            }
+
+        }
         whOutput.appendText("Part was added! \n");
 
     }
@@ -339,7 +379,7 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-        private void handleOMEnterAction(Event event) {
+    private void handleOMEnterAction(Event event) {
         //grabs all the information that was entered into the text fields
         String partName = pName.getText();
         String partNum = pNum.getText();
@@ -400,7 +440,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @Override
-        public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
@@ -413,4 +453,67 @@ public class FXMLDocumentController implements Initializable {
         stage.setScene(new Scene(passwordWindow));
         stage.show();
     }
+     /**
+     * This method will allow the user to add a sales van to the fleet
+     *
+     * @param event
+     */
+    @FXML
+    private void handleAddAction(ActionEvent event) throws IOException {
+        String wareHouse = salesVan.getText();
+        File dFile = new File((System.getProperty("user.dir") + "\\" + wareHouse));
+        ArrayList<BikePart> list = new ArrayList<>();
+        WareHouse van = new WareHouse(list, wareHouse);
+        fleet.add(van);
+        saOutput.appendText("Sales van added! \n");
+        writeText(dFile, list);
+    }
+    private void handleMovebetweenAction(ActionEvent event) throws FileNotFoundException, IOException {
+        String userInput = vantoVan.getText();
+        BufferedReader wreader = new BufferedReader(new FileReader(userInput));
+        Scanner reader = new Scanner(wreader);
+        ArrayList<BikePart> van2van = new ArrayList();
+        String next = reader.nextLine();
+        String[] warehouse = next.split(",");
+        String from = warehouse[0];
+        String to = warehouse[1];
+        int num = 0;
+        int num2 = 0;
+        for (int g = 0; g < fleet.size(); g++) {
+            if (from.equals(fleet.get(g).getWareName())) {
+                num = g;
+            }
+            for (int y = 0; y < fleet.size(); y++) {
+                if (to.equals(fleet.get(y).getWareName())) {
+                    num2 = y;
+                }
+            }
+            while (reader.hasNext()) {
+                String firstLine = reader.nextLine();
+                String[] parts = firstLine.split(",");
+                String part = parts[0];
+                int qant = Integer.parseInt(parts[1]);
+                for (int k = 0; k < fleet.get(num).getWareHouse().size(); k++) {
+                    if (part.equals(fleet.get(num).getWareHouse().get(k).getpartName())) {
+                        fleet.get(num).getWareHouse().get(k).setQuantity(fleet.get(num).getWareHouse().get(k).getquantity() - qant);
+                        van2van.add(new BikePart(fleet.get(num).getWareHouse().get(k).getpartName(), fleet.get(num).getWareHouse().get(k).getpartNumber(), fleet.get(num).getWareHouse().get(k).getlistPrice(), fleet.get(num).getWareHouse().get(k).getsalesPrice(), fleet.get(num).getWareHouse().get(k).getonSale(), qant));
+                    }
+                }
+            }
+            for (int k = 0; k < van2van.size(); k++) {
+                int count = 0;
+                for (int j = 0; j < fleet.get(num2).getWareHouse().size(); j++) {
+                    if (van2van.get(k).getpartName().equals(fleet.get(num2).getWareHouse().get(j).getpartName())) {
+                        fleet.get(num2).getWareHouse().get(j).setQuantity(fleet.get(num2).getWareHouse().get(j).getquantity() + van2van.get(k).getquantity());
+                        count += 1;
+                    }
+                }
+                if (count == 0) {
+                    fleet.get(num2).getWareHouse().add(new BikePart(van2van.get(k).getpartName(), van2van.get(k).getpartNumber(), van2van.get(k).getlistPrice(), van2van.get(k).getsalesPrice(), van2van.get(k).getonSale(), van2van.get(k).getquantity()));
+                }
+            }
+        }
+        sOutput.appendText("Inventory moved!" + "\n");
+    }
+
 }
