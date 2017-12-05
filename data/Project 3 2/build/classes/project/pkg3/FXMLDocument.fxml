@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.pkg3.FXMLDocumentController">
+  <tabs>
+    <Tab fx:id="welcome" text="Welcome">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="135.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Bicycle Parts Distributorship  " textAlignment="CENTER" wrappingWidth="330.78515625">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="wOutput" layoutX="94.0" layoutY="214.0" prefHeight="108.0" prefWidth="413.0" />
+                  <Button fx:id="start" layoutX="415.0" layoutY="168.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="35.0" prefWidth="61.0" text="Login" />
+                  <Button fx:id="exit" layoutX="280.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleExitAction" text="Exit" />
+                  <TextField fx:id="usernameTF" layoutX="254.0" layoutY="107.0" promptText="Enter your username" />
+                  <Label layoutX="190.0" layoutY="111.0" text="Username:" />
+                  <PasswordField fx:id="passwordTF" layoutX="254.0" layoutY="141.0" promptText="Enter your password" />
+                  <Label layoutX="190.0" layoutY="145.0" text="Password:" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="officeManager" disable="true" text="Office Manager">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="pNameETF" layoutX="31.0" layoutY="34.0" promptText="Enter part name" />
+                  <TextField fx:id="pNumETF" layoutX="31.0" layoutY="86.0" promptText="Enter part number" />
+                  <Button fx:id="examineNB" layoutX="184.0" layoutY="34.0" mnemonicParsing="false" onAction="#examineNAction" text="Examine" />
+                  <Button fx:id="addOrderB" layoutX="118.0" layoutY="150.0" mnemonicParsing="false" onAction="#addOrderAction" text="Add an order to Inventory" />
+                  <Button fx:id="checkInvB" layoutX="9.0" layoutY="150.0" mnemonicParsing="false" onAction="#checkInvAction" text="Check Inventory" />
+                  <Button fx:id="paySalesmanB" layoutX="498.0" layoutY="185.0" mnemonicParsing="false" onAction="#paySalesmanAction" text="Pay Salesman" />
+                  <Text layoutX="222.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Office Manager" wrappingWidth="153.5927734375">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="logoutB" layoutX="529.0" layoutY="338.0" mnemonicParsing="false" onAction="#logoutAction" text="Log out" />
+                  <ScrollPane layoutX="9.0" layoutY="185.0" prefHeight="165.0" prefWidth="410.0" vbarPolicy="NEVER">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="165.0" prefWidth="395.0">
+                           <children>
+                              <TextArea fx:id="omOutput" prefHeight="163.0" prefWidth="397.0" />
+                           </children></AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Label layoutX="14.0" layoutY="18.0" text="Examine a part by name:" />
+                  <Label layoutX="14.0" layoutY="67.0" text="Examine a part by number:" />
+                  <Button fx:id="examineNumB" layoutX="184.0" layoutY="86.0" mnemonicParsing="false" onAction="#examineNumAction" text="Examine" />
+                  <ScrollPane layoutX="386.0" layoutY="12.0" prefHeight="95.0" prefWidth="200.0">
+                     <content>
+                        <ListView fx:id="salesmanList" prefHeight="106.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+                  <TextField fx:id="startDateTF" layoutX="386.0" layoutY="118.0" prefHeight="25.0" prefWidth="196.0" promptText="Start Date (mm/dd/yyyy)" />
+                  <TextField fx:id="endDateTF" layoutX="386.0" layoutY="150.0" prefHeight="25.0" prefWidth="196.0" promptText="End Date (mm/dd/yyyy)" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="Salesman" disable="true" text="Salesman">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="moveTF" layoutX="43.0" layoutY="48.0" promptText="Enter file name" />
+                  <Button fx:id="moveB" layoutX="198.0" layoutY="48.0" mnemonicParsing="false" onAction="#moveAction" text="Move" />
+                  <TextField fx:id="pNumTF" layoutX="43.0" layoutY="121.0" promptText="Enter part number" />
+                  <TextField fx:id="qtyTF" layoutX="43.0" layoutY="148.0" promptText="Enter quantity" />
+                  <Button fx:id="sellNumB" disable="true" layoutX="204.0" layoutY="121.0" mnemonicParsing="false" onAction="#sellNumAction" prefHeight="25.0" prefWidth="101.0" text=" sell by number" />
+                  <ScrollPane layoutX="18.0" layoutY="183.0" prefHeight="182.0" prefWidth="522.0" vbarPolicy="ALWAYS">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="506.0">
+                           <children>
+                              <TextArea fx:id="sOutput" editable="false" prefHeight="179.0" prefWidth="509.0" />
+                           </children></AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Button fx:id="logoutSB" layoutX="542.0" layoutY="332.0" mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
+                  <TextField fx:id="pNameTF" layoutX="43.0" layoutY="90.0" promptText="Enter part name" />
+                  <Button fx:id="sellNB" disable="true" layoutX="204.0" layoutY="90.0" mnemonicParsing="false" onAction="#sellNAction" prefHeight="25.0" prefWidth="101.0" text="sell by name" />
+                  <TextField fx:id="shopNTF" layoutX="346.0" layoutY="44.0" promptText="Enter shop name" />
+                  <TextField fx:id="shopOTF" layoutX="346.0" layoutY="77.0" promptText="Enter shop owner" />
+                  <Button fx:id="enterShopB" layoutX="501.0" layoutY="56.0" mnemonicParsing="false" onAction="#enterShopAction" text="Enter shop info" />
+                  <Button fx:id="generateInvB" disable="true" layoutX="475.0" layoutY="148.0" mnemonicParsing="false" onAction="#generateInvAction" text="Generate Invoice" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="WHmanager" disable="true" text="WH Manager">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="214.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Warehouse Manager">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="pNameETF1" layoutX="31.0" layoutY="34.0" promptText="Enter part name" />
+                  <TextField fx:id="pNumETF1" layoutX="31.0" layoutY="86.0" promptText="Enter part number" />
+                  <Button fx:id="examineNB1" layoutX="184.0" layoutY="34.0" mnemonicParsing="false" onAction="#examineNWHAction" text="Examine" />
+                  <Label layoutX="14.0" layoutY="18.0" text="Examine a part by name:" />
+                  <Label layoutX="14.0" layoutY="67.0" text="Examine a part by number:" />
+                  <Button fx:id="examineNumB1" layoutX="184.0" layoutY="86.0" mnemonicParsing="false" onAction="#examineNumWHAction" text="Examine" />
+                  <ScrollPane layoutX="9.0" layoutY="185.0" prefHeight="165.0" prefWidth="410.0" vbarPolicy="NEVER">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="165.0" prefWidth="395.0">
+                           <children>
+                              <TextArea fx:id="whmOutput" prefHeight="163.0" prefWidth="397.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="logoutB1" layoutX="529.0" layoutY="338.0" mnemonicParsing="false" onAction="#logoutAction" text="Log out" />
+                  <Button fx:id="addOrderB1" layoutX="14.0" layoutY="154.0" mnemonicParsing="false" onAction="#updateInventoryAction" text="Update Inventory" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="systemAdmin" disable="true" text="System Admin">
+        <content>
+          <AnchorPane disable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="associateB" layoutX="424.0" layoutY="313.0" mnemonicParsing="false" onAction="#associateAction" text="Associate" />
+                  <TextField fx:id="fNameTF" layoutX="42.0" layoutY="43.0" prefHeight="25.0" prefWidth="99.0" promptText="First Name" />
+                  <TextField fx:id="lNameTF" layoutX="143.0" layoutY="43.0" prefHeight="25.0" prefWidth="100.0" promptText="Last Name" />
+                  <TextField fx:id="emailTF" layoutX="42.0" layoutY="82.0" prefHeight="25.0" prefWidth="200.0" promptText="Email" />
+                  <TextField fx:id="uNameTF" layoutX="41.0" layoutY="118.0" prefHeight="25.0" prefWidth="100.0" promptText="Username" />
+                  <TextField fx:id="passTF" layoutX="143.0" layoutY="118.0" prefHeight="25.0" prefWidth="101.0" promptText="Password" />
+                  <TextArea fx:id="adminMsgTA" layoutX="11.0" layoutY="227.0" prefHeight="107.0" prefWidth="344.0" />
+                  <Button fx:id="adminLogoutB" layoutX="300.0" layoutY="338.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="27.0" prefWidth="60.0" text="Log out" />
+                  <ScrollPane layoutX="372.0" layoutY="37.0" prefHeight="83.0" prefWidth="200.0">
+                     <content>
+                        <ListView fx:id="accountsList" prefHeight="106.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+                  <Text layoutX="173.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="System Admin">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="addAccountB" layoutX="143.0" layoutY="186.0" mnemonicParsing="false" onAction="#addAccountActon" text="Add" />
+                  <Label fx:id="msgL" layoutX="128.0" layoutY="317.0" textFill="#da1616" />
+                  <Button fx:id="editAccountB" layoutX="372.0" layoutY="131.0" mnemonicParsing="false" onAction="#editAccountAction" text="Edit" />
+                  <Button fx:id="deleteAccountB" layoutX="419.0" layoutY="131.0" mnemonicParsing="false" onAction="#deleteAccountAction" text="Delete" />
+                  <ComboBox fx:id="accountTypeCB" layoutX="41.0" layoutY="152.0" prefWidth="200.0" />
+                  <Label layoutX="372.0" layoutY="18.0" text="Accounts:" />
+                  <Label layoutX="14.0" layoutY="18.0" text="New Account Form" />
+                  <ScrollPane layoutX="372.0" layoutY="205.0" prefHeight="101.0" prefWidth="200.0">
+                     <content>
+                        <ListView fx:id="vansList" prefHeight="88.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+                  <Label layoutX="372.0" layoutY="181.0" text="Sales Vans:" />
+                  <Button fx:id="addVanB" layoutX="372.0" layoutY="313.0" mnemonicParsing="false" onAction="#addVanAction" text="Add" />
+                  <Button fx:id="updateAccountB" disable="true" layoutX="193.0" layoutY="186.0" mnemonicParsing="false" onAction="#updateAccountAction" text="Update" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
